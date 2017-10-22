@@ -14,7 +14,7 @@ class GlogConan(ConanFile):
     requires = "gflags/v2.2.1@dostolski/testing"
 
     def source(self):
-        self.run("git clone https://github.com/DariuszOstolski/glog.git")
+        self.run("git clone https://github.com/google/glog.git")
         self.run("cd glog && git checkout -b v0.3.5-conan v0.3.5")
         # This small hack might be useful to guarantee proper /MT /MD linkage in MSVC
         # if the packaged project doesn't have variables to set it properly
