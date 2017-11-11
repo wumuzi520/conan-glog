@@ -5,8 +5,8 @@ class GlogConan(ConanFile):
     name = "glog"
     version = "0.3.5"
     license = "MIT"
-    url = "<Package recipe repository url here, for issues about the package>"
-    description = "<Description of Glog here>"
+    url = "https://github.com/DariuszOstolski/conan-glog.git"
+    description = "C++ implementation of the Google logging module"
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
     default_options = "shared=False"
