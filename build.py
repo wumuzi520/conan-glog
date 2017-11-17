@@ -54,6 +54,7 @@ if __name__ == "__main__":
     reference = "{0}/{1}".format(name, version)
     upload = "https://api.bintray.com/conan/{0}/public-conan".format(username.lower())
 
+    print("upload-repo: {0}".format(upload))
     builder = ConanMultiPackager(
         username=username,
         channel=channel,
