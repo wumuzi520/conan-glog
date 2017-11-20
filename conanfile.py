@@ -11,7 +11,7 @@ class GlogConan(ConanFile):
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = "shared=True", "fPIC=True"
     generators = "cmake"
-    requires = "gflags/2.2.1@bincrafters/stable"
+    requires = "gflags/[>=2.2]@bincrafters/stable"
 
     def source(self):
         source_url = "https://github.com/google/{0}".format(self.name)
@@ -50,6 +50,9 @@ conan_basic_setup()''')
         cmake.configure(source_dir="{0}-{1}".format(self.name, self.version))
         cmake.build()
         cmake.install()
+
+    def configure(self):
+        self.options["gflags"].shared = self.options.shared
 
     def package(self):
         self.copy("log_severity.h", dst="include/glog", src="glog/src/glog")
