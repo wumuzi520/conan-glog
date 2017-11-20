@@ -18,7 +18,7 @@ class GlogConan(ConanFile):
         tools.get("{0}/archive/v{1}.tar.gz".format(source_url, self.version))
         # This small hack might be useful to guarantee proper /MT /MD linkage in MSVC
         # if the packaged project doesn't have variables to set it properly
-        tools.replace_in_file("{0}-{1}/CMakeLists.txt".format(self.name, self.version), "include (DetermineGflagsNamespace)", '''include (DetermineGflagsNamespace)
+        tools.replace_in_file("{0}-{1}/CMakeLists.txt".format(self.name, self.version), "include (DetermineGlogNamespace)", '''include (DetermineGlogNamespace)
 #include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 #conan_basic_setup()''')
 
