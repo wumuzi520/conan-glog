@@ -60,7 +60,7 @@ if __name__ == "__main__":
         channel=channel,
         reference=reference,
         upload=upload,
-        remotes=upload,  # while redundant, this moves bincrafters remote to position 0
+        remotes=['https://api.bintray.com/conan/bincrafters/public-conan', upload],  # while redundant, this moves bincrafters remote to position 0
         upload_only_when_stable=True,
         stable_branch_pattern="stable/*")
 

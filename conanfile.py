@@ -11,7 +11,7 @@ class GlogConan(ConanFile):
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = "shared=True", "fPIC=True"
     generators = "cmake"
-    requires = "gflags/2.2.1@DariuszOstolski/stable"
+    requires = "gflags/2.2.1@bincrafters/stable"
 
     def source(self):
         source_url = "https://github.com/google/{0}".format(self.name)
