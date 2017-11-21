@@ -22,7 +22,8 @@ class GlogTestConan(ConanFile):
                                                                    compiler))
 
         if compiler in ("Visual Studio"):
-            pass
+            cmake.definitions["CMAKE_CXX_LINK_FLAGS"] = "/verbose"
+
         cmake.definitions["CMAKE_C_FLAGS"] = " ".join(flags)
         cmake.definitions["CMAKE_CXX_FLAGS"] = cmake.definitions["CMAKE_C_FLAGS"]
 
