@@ -68,10 +68,7 @@ conan_basic_setup()''')
 
     def package_info(self):
         if self.settings.os == "Windows":
-            if self.options.shared:
-                self.cpp_info.libs = ["glog"]
-            else:
-                self.cpp_info.libs = ["glog_static"]
+            self.cpp_info.libs = ["glog"]
             self.cpp_info.libs.extend(['shlwapi'])
         else:
             self.cpp_info.libs = ["glog"]
