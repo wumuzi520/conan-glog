@@ -39,7 +39,7 @@ class GlogConan(ConanFile):
     def package(self):
         with tools.chdir("sources"):
             self.copy(pattern="COPYING")
-            self.copy("log_severity.h", dst="include/glog", src="glog/src/glog")
+            self.copy("log_severity.h", dst="include/glog", src="sources/src/glog")
             self.copy("logging.h", dst="include/glog", src="glog")
             self.copy("raw_logging.h", dst="include/glog", src="glog")
             self.copy("stl_logging.h", dst="include/glog", src="glog")
