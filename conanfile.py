@@ -28,9 +28,27 @@ class GlogConan(ConanFile):
     def build(self):
         cmake = CMake(self)
         cmake.verbose = True
-        self.output.info("options.shared: {0}; options.fPIC: {1}".format(self.options.shared, self.options.fPIC))
-        self.output.info("os: {0}; compiler: {1}; build_type: {2}".format(self.settings.os, self.settings.compiler, self.settings.build_type))
+        flags = []
 
+        compiler = str(self.settings.compiler)
+        if compiler in ("gcc", "clang", "apple-clang"):
+            if self.settings.arch == 'x86':
+                flags.append("-m32")
+            else:
+                flags.append("-m64")
+
+            if self.options.fPIC:
+                flags.append("-fPIC")
+
+        self.output.info("arch: {0}; flags {1}; shared: {2}".format(self.settings.arch, flags, self.options.shared))
+        if compiler in ("clang", "apple-clang"):
+            # without the following, compilation gets stuck indefinitely
+            flags.append("-Wno-deprecated-declarations")
+
+        cmake.definitions["CMAKE_C_FLAGS"] = " ".join(flags)
+        cmake.definitions["CMAKE_CXX_FLAGS"] = cmake.definitions["CMAKE_C_FLAGS"]
+
+        cmake.definitions["BUILD_SHARED_LIBS"] = self.options.shared
         cmake.configure(source_dir="sources")
         cmake.build()
 
