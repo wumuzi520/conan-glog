@@ -27,9 +27,10 @@ class GlogConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-
+        cmake.verbose = True
         self.output.info("options.shared: {0}; options.fPIC: {1}".format(self.options.shared, self.options.fPIC))
         self.output.info("os: {0}; compiler: {1}; build_type: {2}".format(self.settings.os, self.settings.compiler, self.settings.build_type))
+
         cmake.configure(source_dir="sources")
         cmake.build()
 
