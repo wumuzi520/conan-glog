@@ -32,7 +32,7 @@ class TestPackageConan(ConanFile):
         if compiler in ("Visual Studio"):
             pass
         
-        cmake.configure()
+        cmake.configure(source_dir=self.conanfile_directory, build_dir="./")
         cmake.build()
 
     def imports(self):

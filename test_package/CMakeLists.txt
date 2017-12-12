@@ -3,6 +3,9 @@ cmake_minimum_required(VERSION 2.8.11)
 
 set(CMAKE_VERBOSE_MAKEFILE TRUE)
 
+file(READ "${CMAKE_BINARY_DIR}/conanbuildinfo.cmake" contents)
+message(STATUS "CONAN_LIBS: ${contents}")
+
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
