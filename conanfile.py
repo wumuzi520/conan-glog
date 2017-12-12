@@ -48,6 +48,8 @@ class GlogConan(ConanFile):
         cmake.definitions["CMAKE_C_FLAGS"] = " ".join(flags)
         cmake.definitions["CMAKE_CXX_FLAGS"] = cmake.definitions["CMAKE_C_FLAGS"]
 
+        cmake.definitions['CMAKE_POSITION_INDEPENDENT_CODE'] = self.options.fPIC
+
         cmake.definitions["BUILD_SHARED_LIBS"] = self.options.shared
         cmake.configure(source_dir="sources")
         cmake.build()

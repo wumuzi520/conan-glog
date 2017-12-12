@@ -27,6 +27,8 @@ class TestPackageConan(ConanFile):
             "arch: {0}; flags: {1}; os: {2}; compiler: {3}".format(self.settings.arch, flags, self.settings.os,
                                                                    compiler))
 
+        self.output.info(
+            "build_type: {0};".format(self.settings.build_type))
         if compiler in ("Visual Studio"):
             pass
         
