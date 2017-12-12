@@ -20,6 +20,8 @@ class TestPackageConan(ConanFile):
                 flags.append("-m32")
             else:
                 flags.append("-m64")
+            cmake.definitions["CMAKE_C_FLAGS"] = " ".join(flags)
+            cmake.definitions["CMAKE_CXX_FLAGS"] = cmake.definitions["CMAKE_C_FLAGS"]
 
         self.output.info(
             "arch: {0}; flags: {1}; os: {2}; compiler: {3}".format(self.settings.arch, flags, self.settings.os,
@@ -27,10 +29,7 @@ class TestPackageConan(ConanFile):
 
         if compiler in ("Visual Studio"):
             pass
-
-        cmake.definitions["CMAKE_C_FLAGS"] = " ".join(flags)
-        cmake.definitions["CMAKE_CXX_FLAGS"] = cmake.definitions["CMAKE_C_FLAGS"]
-
+        
         cmake.configure()
         cmake.build()
 
