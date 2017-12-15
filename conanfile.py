@@ -12,11 +12,17 @@ class GlogConan(ConanFile):
     description = "Google logging library"
     license = "https://github.com/google/glog/blob/master/COPYING"
     settings = "os", "arch", "compiler", "build_type"
-    options = {"shared": [True, False], "fPIC": [True, False]}
-    default_options = "shared=False", "fPIC=False"
-    #use static org/channel for libs in conan-center
-    #use dynamic org/channel for libs in bincrafters
-    requires = "gflags/[>=2.2]@bincrafters/stable"
+    options = {"shared": [True, False], "fPIC": [True, False], "with_gflags": [True, False], "with_threads": [True, False]}
+    default_options = "shared=False", "fPIC=True", "with_gflags=True", "with_threads=True"
+    requires = ""
+    exports_sources = "CMakeLists.txt"
+
+    def configure(self):
+        if self.settings.os == "Windows":
+            self.options.remove("fPIC");
+
+        if self.options.with_gflags:
+            self.requires("gflags/[>=2.2]@bincrafters/stable")
 
     def source(self):
         source_url =  "https://github.com/google/{0}".format(self.name)
@@ -27,29 +33,10 @@ class GlogConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.verbose = True
-        flags = []
-
-        compiler = str(self.settings.compiler)
-        if compiler in ("gcc", "clang", "apple-clang"):
-            if self.settings.arch == 'x86':
-                flags.append("-m32")
-            else:
-                flags.append("-m64")
-
-            if self.options.fPIC:
-                flags.append("-fPIC")
-
-        self.output.info("arch: {0}; flags {1}; shared: {2}".format(self.settings.arch, flags, self.options.shared))
-        if compiler in ("clang", "apple-clang"):
-            # without the following, compilation gets stuck indefinitely
-            flags.append("-Wno-deprecated-declarations")
-
-        cmake.definitions["CMAKE_C_FLAGS"] = " ".join(flags)
-        cmake.definitions["CMAKE_CXX_FLAGS"] = cmake.definitions["CMAKE_C_FLAGS"]
-
-        cmake.definitions['CMAKE_POSITION_INDEPENDENT_CODE'] = self.options.fPIC
-
+        cmake.definitions['WITH_GFLAGS'] = self.options.with_gflags
+        cmake.definitions['WITH_THREADS'] = self.options.with_threads
+        if self.settings.os != "Windows":
+            cmake.definitions['CMAKE_POSITION_INDEPENDENT_CODE'] = self.options.fPIC
         cmake.definitions["BUILD_SHARED_LIBS"] = self.options.shared
         cmake.configure(source_dir="sources")
         cmake.build()
