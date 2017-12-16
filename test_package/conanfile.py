@@ -11,35 +11,8 @@ class TestPackageConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        cmake.verbose = True
-        compiler = str(self.settings.compiler)
-        flags = []
-
-        if compiler in ("gcc", "clang", "apple-clang"):
-            if self.settings.arch == 'x86':
-                flags.append("-m32")
-            else:
-                flags.append("-m64")
-            cmake.definitions["CMAKE_C_FLAGS"] = " ".join(flags)
-            cmake.definitions["CMAKE_CXX_FLAGS"] = cmake.definitions["CMAKE_C_FLAGS"]
-
-        self.output.info(
-            "arch: {0}; flags: {1}; os: {2}; compiler: {3}".format(self.settings.arch, flags, self.settings.os,
-                                                                   compiler))
-
-        self.output.info(
-            "build_type: {0};".format(self.settings.build_type))
-        if compiler in ("Visual Studio"):
-            pass
-        
-        cmake.configure(source_dir=self.conanfile_directory, build_dir="./")
+        cmake.configure()
         cmake.build()
-
-    def imports(self):
-        self.copy("*.dll", dst="bin", src="bin")
-        self.copy("*.dylib*", dst="bin", src="lib")
-        self.copy('*.so*', dst='bin', src='lib')
-        self.copy('*.lib*', dst='bin', src='lib')
 
     def test(self):
         with tools.environment_append(RunEnvironment(self).vars):

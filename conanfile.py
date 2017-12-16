@@ -14,15 +14,15 @@ class GlogConan(ConanFile):
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False], "fPIC": [True, False], "with_gflags": [True, False], "with_threads": [True, False]}
     default_options = "shared=False", "fPIC=True", "with_gflags=True", "with_threads=True"
-    requires = ""
+    requires = "gflags/[>=2.2]@bincrafters/stable"
     exports_sources = "CMakeLists.txt"
 
     def configure(self):
         if self.settings.os == "Windows":
-            self.options.remove("fPIC");
+            self.options.remove("fPIC")
 
-        if self.options.with_gflags:
-            self.requires("gflags/[>=2.2]@bincrafters/stable")
+#        if self.options.with_gflags:
+#            self.requires("gflags/[>=2.2]@bincrafters/stable")
 
     def source(self):
         source_url =  "https://github.com/google/{0}".format(self.name)
