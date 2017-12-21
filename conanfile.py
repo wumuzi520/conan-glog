@@ -13,7 +13,7 @@ class GlogConan(ConanFile):
     license = "https://github.com/google/glog/blob/master/COPYING"
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False], "fPIC": [True, False], "with_gflags": [True, False], "with_threads": [True, False]}
-    default_options = "shared=False", "fPIC=True", "with_gflags=True", "with_threads=True"
+    default_options = "shared=False", "fPIC=True", "with_gflags=True", "with_threads=True", "gflags:shared=True"
     generators = "cmake"
     requires = ""
     exports_sources = "CMakeLists.txt"
