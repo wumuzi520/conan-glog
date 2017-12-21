@@ -13,7 +13,7 @@ class GlogConan(ConanFile):
     license = "https://github.com/google/glog/blob/master/COPYING"
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False], "fPIC": [True, False], "with_gflags": [True, False], "with_threads": [True, False]}
-    default_options = "shared=False", "fPIC=True", "with_gflags=True", "with_threads=True", "gflags:shared=True"
+    default_options = "shared=False", "fPIC=True", "with_gflags=True", "with_threads=True"
     generators = "cmake"
     requires = ""
     exports_sources = "CMakeLists.txt"
@@ -35,6 +35,7 @@ class GlogConan(ConanFile):
         cmake = CMake(self)
         cmake.definitions['WITH_GFLAGS'] = self.options.with_gflags
         cmake.definitions['WITH_THREADS'] = self.options.with_threads
+        cmake.definitions['BUILD_TESTING'] = False
         if self.settings.os != "Windows":
             cmake.definitions['CMAKE_POSITION_INDEPENDENT_CODE'] = self.options.fPIC
         cmake.definitions["BUILD_SHARED_LIBS"] = self.options.shared
