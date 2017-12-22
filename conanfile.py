@@ -24,6 +24,8 @@ class GlogConan(ConanFile):
 
         if self.options.with_gflags:
             self.requires("gflags/[>=2.2]@bincrafters/stable")
+            self.options["gflags"].shared = self.options.shared
+        
 
     def source(self):
         source_url =  "https://github.com/google/{0}".format(self.name)
