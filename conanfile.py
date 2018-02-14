@@ -40,7 +40,6 @@ class GlogConan(ConanFile):
         cmake.definitions['BUILD_TESTING'] = False
         if self.settings.os != "Windows":
             cmake.definitions['CMAKE_POSITION_INDEPENDENT_CODE'] = self.options.fPIC
-        cmake.definitions["BUILD_SHARED_LIBS"] = self.options.shared
         cmake.configure()
         cmake.build()
         cmake.install()
