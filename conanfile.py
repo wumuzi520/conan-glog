@@ -24,7 +24,7 @@ class GlogConan(ConanFile):
             self.options.remove("fPIC")
 
         if self.options.with_gflags:
-            self.requires("gflags/2.2.1@bincrafters/stable")
+            self.requires("gflags/2.2.1@ant/stable")
         
 
     def source(self):
