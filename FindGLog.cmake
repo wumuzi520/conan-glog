@@ -5,7 +5,7 @@
 #  GLOG_LIBRARIES     - List of libraries when using libglog.
 #  GLOG_FOUND       - True if libglog found.
 
-FIND_PATH(GLOG_INCLUDE_DIRS glog/glog.h)
+FIND_PATH(GLOG_INCLUDE_DIRS glog/logging.h)
 
 FIND_LIBRARY(GLOG_LIBRARIES NAMES glog)
 
