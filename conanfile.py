@@ -12,7 +12,7 @@ class GlogConan(ConanFile):
     description = "Google logging library"
     license = "BSD 3-Clause"
     exports = ["LICENSE.md"]
-    exports_sources = ["CMakeLists.txt"]
+    exports_sources = ["CMakeLists.txt", "FindGLog.cmake"]
     source_subfolder = "source_subfolder"
     generators = "cmake"
     settings = "os", "arch", "compiler", "build_type"
@@ -45,6 +45,7 @@ class GlogConan(ConanFile):
         cmake.install()
 
     def package(self):
+        self.copy("FindGLog.cmake", ".", ".")
         self.copy("COPYING", dst="licenses", src=self.source_subfolder)
 
     def package_info(self):
